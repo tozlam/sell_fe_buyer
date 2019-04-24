@@ -8,13 +8,17 @@ import seller from 'components/seller/seller';
 import payment from 'components/payment';
 import orderList from 'components/order/list';
 import orderDetail from 'components/order/detail';
-
-
+import ratingOrder from 'components/ratingOrder/ratingOrder'
+import complainOrder from 'components/complainOrder/complainOrder'
+import addressList from 'components/address/addressList'
+import addressAdd from 'components/address/addressAdd'
 import 'common/stylus/index.styl';
-
+// import axios from 'https://unpkg.com/axios/dist/axios.min.js'
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.http.options.emulateJSON = true;
+// Vue.prototype.$axios = axios;
+
 
 const routes = [{
   path: '/',
@@ -37,7 +41,20 @@ const routes = [{
 }, {
     path: '/order/:orderId',
     component: orderDetail
-}];
+},{
+  path:'/ratingOrder/:orderId',
+  component:ratingOrder
+},
+  {
+    path:'/complainOrder/:orderId',
+    component:complainOrder
+  },{
+    path:'/address/list',
+    component:addressList
+  },{
+    path:'/address/add',
+    component:addressAdd
+  }];
 
 const router = new VueRouter({
   linkActiveClass: 'active',

@@ -1,8 +1,8 @@
-<template>
+﻿<template>
     <div id="detail">
             <div  class="statushead" >
                 <div  class="statuscircle" style="transform: scale(1); opacity: 1;">
-                    <img  class="circleimage" src="//fuss10.elemecdn.com/2/e4/bff50bab2840cdfbffeaf13a20710png.png" />
+                    <img  class="circleimage" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555259796878&di=755a2c04a2f03eff54d16377a73670f1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201502%2F18%2F20150218134618_cW8vN.jpeg" />
                     <!---->
                 </div>
                 <!---->
@@ -12,12 +12,14 @@
                 <div  class="buttons">
                     <button v-if="order.orderStatus == 0 && order.payStatus == 0" @click="pay(order.orderId)">去支付</button>
                     <button v-if="order.orderStatus == 0" @click="cancelOrder(order.orderId)">{{cancelOrderName}}</button>
+                    <button v-if="order.orderStatus == 1 && order.payStatus == 1 && order.evalStatus == 0" @click="ratingOrder(order.orderId)">{{ratingOrderName}}</button>
+                    <button v-if="order.orderStatus == 1 && order.payStatus == 1 && order.comStatus == 0" @click="complainOrder(order.orderId)">{{complainOrderName}}</button>
                 </div>
             </div>
             <div  class="restaurant-card" >
                 <div  class="head listitem">
                     <div  class="name-wrap">
-                        <img  class="avatar" src="//fuss10.elemecdn.com/2/e4/bff50bab2840cdfbffeaf13a20710png.png" />
+                        <img  class="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555259796878&di=755a2c04a2f03eff54d16377a73670f1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201502%2F18%2F20150218134618_cW8vN.jpeg" />
                         <span  class="name">商品信息</span>
                     </div>
                     <!--<img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAcCAMAAABf788oAAAAbFBMVEUAAAAzMzMzMzM2NjYzMzM1NTU0NDRAQEAzMzM0NDRAQEAzMzM0NDQzMzM0NDQ0NDQ0NDQzMzMzMzMzMzM0NDQ1NTU2NjY5OTk0NDQ0NDQzMzM0NDQzMzM0NDQ1NTU0NDQzMzM0NDQ3NzczMzMku2ijAAAAI3RSTlMA+/Yi4Do2CnhIBO/o176uopeGb2VALhsT8c/LtI2DXVVTM3zB6zwAAACGSURBVBjTfdBJEsIwDETRJHZMRkgIGZiHf/874mVbRaFdv42kzn6MCybnjAkE4JjIAFQKzQE4qez2wCuRK+S1ytZDUaqsHtpFxXXQOZWlBb+qlEWUTaXO4ZIs78Gb83R1c4PzRx8ypw0xz5JH88w95rfkB/CUXJmCJmDSP22lwZaezSH7N19vZgteSBxyaAAAAABJRU5ErkJggg==" class="icon-arrowright" />-->
@@ -67,6 +69,32 @@
                         <li  class="listitem"><span >下单时间：</span>{{order.createTime | time}} </li>
                     </ul>
                 </div>
+              <div  class="detailcard-order card">
+                <div  class="title listitem">
+                  评价信息
+                </div>
+                <ul  class="cardlist">
+                  <li  class="listitem">
+                    <div  class="content">
+                    <p >{{order.buyerEval}}</p>
+                  </div>
+                  </li>
+                  <li  class="listitem"><span >评价图片：</span><img v-if="order.evalPhoto&&order.evalPhoto.length>0" v-bind:src="evalPhoto" width="120"/> </li>
+                </ul>
+              </div>
+              <div  class="detailcard-order card">
+                <div  class="title listitem">
+                  投诉信息
+                </div>
+                <ul  class="cardlist">
+                  <li  class="listitem"><div  class="content">
+                    <p >{{order.buyerComplain}}</p>
+                  </div>
+                  </li>
+                  <li  class="listitem"><span >投诉图片1：</span> <img v-if="order.complainFile&&order.complainFile.length>0" v-bind:src="complainFile" width="120"/></li>
+                  <li  class="listitem"><span >投诉图片2：</span> <img v-if="order.complainPhoto&&order.complainPhoto.length>0" v-bind:src="complainPhoto" width="120"/></li>
+                </ul>
+              </div>
             </div>
     </div>
 </template>
@@ -79,7 +107,12 @@
            return {
                order: {},
                orderDetailList: [],
-               cancelOrderName: '取消订单'
+               cancelOrderName: '取消订单',
+               ratingOrderName:'评价订单',
+               complainOrderName:'投诉订单',
+               evalPhoto:'',
+               complainFile:'',
+               complainPhoto:''
            }
         },
         created() {
@@ -90,6 +123,20 @@
                 }
             }).then(function (response) {
                 this.order = response.body.data;
+                if (this.order !== null){
+                  console.log('order is not null!');
+                  if (this.order.evalPhoto !== null){
+                    this.evalPhoto = this.order.evalPhoto;
+                  }
+                  if (this.order.complainFile !== null){
+                    this.complainFile = this.order.complainFile;
+                  }
+                  if (this.order.complainPhoto !== null){
+                    this.complainPhoto = this.order.complainPhoto;
+                  }
+                  console.log('properties is not null!');
+                  console.log('orderStatus：'+this.order.orderStatus+'  payStatus:'+this.order.payStatus+'  evalStatus:'+this.order.evalStatus+'  comStatus:'+this.order.comStatus);
+                }
                 this.orderDetailList = this.order.orderDetailList;
             })
         },
@@ -141,13 +188,20 @@
                         alert('取消订单失败:' + response.msg)
                     }
                 });
+                this.$router.push('/payment');
             },
             pay: function (orderId) {
                 location.href = config.wechatPayUrl +
                     '?openid=' + getCookie('openid') +
                     '&orderId=' + orderId +
                     '&returnUrl=' + encodeURIComponent(config.sellUrl + '/#/order/' + orderId);
-            }
+            },
+          ratingOrder:function (orderId) {
+                  location.href='/#/ratingOrder/'+orderId;
+          },
+          complainOrder:function (orderId) {
+            location.href='/#/complainOrder/'+orderId;
+          }
         }
     }
     function getCookie(name) {

@@ -1,9 +1,9 @@
-<template>
+﻿<template>
     <div infinite-scroll-distance="20" class="orderbody">
     <a  @click="orderDetail(item)" class="ordercard" v-for="item in orderList">
         <div  class="ordercard-body">
             <div  class="ordercard-avatar">
-                <img  src="https://fuss10.elemecdn.com/2/e4/bff50bab2840cdfbffeaf13a20710png.png?imageMogr/format/webp/">
+                <img  src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555254329033&di=7e86634c53bcf8f0dd1554a0ed85d2bf&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201409%2F10%2F20140910120722_wUVnt.jpeg">
             </div>
             <div  class="ordercard-content">
                 <div class="ordercard-head">
@@ -22,8 +22,8 @@
                 </div>
                 <div  class="ordercard-detail">
                     <p  class="detail">
-                        <!--<span  class="productname">豆乳盒子</span>-->
-                        <!--<span ></span>-->
+                      <label style="color: #00a0dc">商店</label>
+                      <span class="productname">{{item.shopName}}</span>
                     </p>
                     <p  class="price">¥{{item.orderAmount}}</p>
                 </div>
