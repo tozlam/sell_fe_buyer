@@ -41,7 +41,8 @@
       changeHash() {
         const hash = window.location.hash;
         if (hash.indexOf('payment') > -1
-        || hash.indexOf('order') > -1 ||hash.indexOf('ratingOrder') > -1 ||hash.indexOf('complainOrder') > -1 ||hash.indexOf('address') > -1) {
+        || hash.indexOf('order') > -1 ||hash.indexOf('ratingOrder') > -1 ||hash.indexOf('complainOrder') > -1
+          ||hash.indexOf('address') > -1 ||hash.indexOf('shopList') > -1) {
           this.showHeader = false;
         } else {
           this.showHeader = true;

@@ -12,6 +12,7 @@ import ratingOrder from 'components/ratingOrder/ratingOrder'
 import complainOrder from 'components/complainOrder/complainOrder'
 import addressList from 'components/address/addressList'
 import addressAdd from 'components/address/addressAdd'
+import shopList from 'common/shopList'
 import 'common/stylus/index.styl';
 // import axios from 'https://unpkg.com/axios/dist/axios.min.js'
 Vue.use(VueRouter);
@@ -54,6 +55,9 @@ const routes = [{
   },{
     path:'/address/add',
     component:addressAdd
+  },{
+    path:'/shopList',
+    component:shopList
   }];
 
 const router = new VueRouter({
