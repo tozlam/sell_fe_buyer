@@ -13,18 +13,20 @@ import complainOrder from 'components/complainOrder/complainOrder'
 import addressList from 'components/address/addressList'
 import addressAdd from 'components/address/addressAdd'
 import shopList from 'common/shopList'
+import search from 'components/search/search.vue'
 import 'common/stylus/index.styl';
-// import axios from 'https://unpkg.com/axios/dist/axios.min.js'
+import axios from 'axios';
+
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.http.options.emulateJSON = true;
-// Vue.prototype.$axios = axios;
+Vue.prototype.$axios = axios;
 
 
 const routes = [{
-  path: '/',
-  component: goods
-}, {
+//   path: '/',
+//   component: goods
+// }, {
   path: '/goods',
   component: goods
 }, {
@@ -37,27 +39,30 @@ const routes = [{
   path: '/payment',
   component: payment
 }, {
+  path: '/search',
+  component: search
+}, {
   path: '/order',
   component: orderList
 }, {
-    path: '/order/:orderId',
-    component: orderDetail
-},{
-  path:'/ratingOrder/:orderId',
-  component:ratingOrder
+  path: '/order/:orderId',
+  component: orderDetail
+}, {
+  path: '/ratingOrder/:orderId',
+  component: ratingOrder
 },
   {
-    path:'/complainOrder/:orderId',
-    component:complainOrder
-  },{
-    path:'/address/list',
-    component:addressList
-  },{
-    path:'/address/add',
-    component:addressAdd
-  },{
-    path:'/shopList',
-    component:shopList
+    path: '/complainOrder/:orderId',
+    component: complainOrder
+  }, {
+    path: '/address/list',
+    component: addressList
+  }, {
+    path: '/address/add',
+    component: addressAdd
+  }, {
+    path: '/shopList',
+    component: shopList
   }];
 
 const router = new VueRouter({

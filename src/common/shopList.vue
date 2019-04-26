@@ -22,7 +22,7 @@
      <!--<ul v-load-more="loaderMore" v-if="shopListArr.length" type="1">-->
      <ul  v-if="shopListArr.length" type="1">
        <!--<router-link :to="{path: 'shop', query:{geohash, id: item.id}}" v-for="item in shopListArr" tag='li' :key="item.id" class="shop_li">-->
-       <a  @click="shopDetail(item)" class="ordercard" v-for="item in shopListArr" tag='li' :key="item.id" class="shop_li">
+       <a  @click="shopDetail(item)" class="ordercard shop_li" v-for="item in shopListArr" tag='li' :key="item.id">
          <section>
            <!--<img v-if="item.shopIcon&&item.shopIcon.length>0" :src="item.shopIcon" width="120"/>-->
            <!--<img :src="imgBaseUrl + item.image_path" class="shop_img">-->
@@ -31,7 +31,7 @@
          <hgroup class="shop_right">
            <header class="shop_detail_header">
              <!--<h4 :class="item.is_premium? 'premium': ''" class="" class="shop_title ellipsis">{{item.name}}</h4>-->
-             <h4 :class="is_premium? 'premium': ''" class="" class="shop_title ellipsis">{{item.shopName}}</h4>
+             <h4 :class="is_premium? 'premium': ''"  class="shop_title ellipsis">{{item.shopName}}</h4>
              <ul class="shop_detail_ul">
                <!--<li v-for="item in item.supports" :key="item.id" class="supports"></li>-->
                <li class="supports">保</li><li class="supports">准</li><li class="supports">票</li>

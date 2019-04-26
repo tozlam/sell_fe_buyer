@@ -79,7 +79,7 @@
         let config = {
           headers:{'Content-Type':'multipart/form-data'}
         };  //添加请求头
-        axios.post('/sell/image/upload',param,config)
+        this.$axios.post('/sell/image/upload',param,config)
           .then(response=>{
             //response = response.body;
             if (response.data.code == ERR_OK) {
